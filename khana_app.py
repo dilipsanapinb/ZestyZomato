@@ -83,9 +83,10 @@ def update_dish_availability():
 # update_dish_availability()
 
 # new order
+# Define the orders list
+orders = []
 
 # Function to take a new order
-orders=[]
 def take_order():
     customer_name = input("Enter customer name: ")
     dish_ids = input("Enter the dish IDs (comma-separated) the customer wants to order: ").split(",")
@@ -96,40 +97,41 @@ def take_order():
         "status": "received"
     }
 
-    # Assign a unique order ID
-    new_order["order_id"] = len(orders) + 1
+    if len(orders) == 0:
+        new_order["order_id"] = 1
+    else:
+        new_order["order_id"] = orders[-1]["order_id"] + 1
 
-    # Add the order to the list of orders
     orders.append(new_order)
 
     print("New order has been placed.")
 
-
-# Call the take_order() function to take a new order
-# take_order()
 
 
 # take_order()
 
 # order status
 
+# Function to update order status
 def update_order_status():
-    order_id=input("Enter thhe order ID to update status: ")
-    new_status=input("Enter the new status of the order: ")
+    order_id = input("Enter the order ID to update status: ")
+    new_status = input("Enter the new status of the order: ")
 
-    updated=False
+    updated = False
 
     for order in orders:
-        if order["order_id"]==order_id:
-            order["status"]=new_status
-            updated=True
-            print(f"Orders with ID `{order_id}` status has been updated.")
+        print (order["order_id"])
+        if str(order["order_id"]) == order_id:
+            order["status"] = new_status
+            updated = True
+            print(f"Order with ID '{order_id}' status has been updated.")
             break
-    
-    if not updated:
-        print(f"No order found with ID `{order_id}`.")
 
-# update_order_status()
+    if not updated:
+        print(f"No order found with ID '{order_id}'.")
+
+
+
 
 # revew the all orders
 
@@ -155,7 +157,7 @@ review_orders()
 # exit the program
 
 def exit_program():
-    print("Thank you for using Khana App. Have a grat day!")
+    print("Thank you for using Khana App. Have a great day!")
     exit()
 
 # exit_program()
